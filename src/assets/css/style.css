@@ -6,6 +6,18 @@
   box-sizing: border-box;
 }
 
+/* Rolagem suave e espaço para a navbar sticky nos links âncora (#home, #george, #legado) */
+html,
+:root {
+  scroll-behavior: smooth;
+}
+
+#home,
+#george,
+#legado {
+  scroll-margin-top: 100px;
+}
+
 body {
   background-color: var(--branco);
   color: var(--preto);
@@ -15,6 +27,7 @@ body {
   flex-direction: column;
 }
 
+/* Caminho relativo a src/assets/css/style.css (fontes em src/assets/fonts/) */
 @font-face {
   font-family: "BEBAS NEUE";
   src: url(../fonts/BebasNeue-Regular.ttf) format("truetype");
@@ -58,17 +71,24 @@ body {
   font-style: italic;
 }
 
+/* Bebas Neue só tem peso Regular (já é uma fonte forte), então sem bold simulado */
 .titulo {
   font-family: var(--fonte-titulos);
   font-size: 4rem;
   line-height: 1.5;
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .paragrafo {
   font-family: var(--fonte-paragrafos);
   font-size: 1rem;
   line-height: 1.5;
+}
+
+/* O Bootstrap só vai até display-6; display-7 é usado nos títulos do Home */
+.display-7 {
+  font-size: 1.75rem;
+  line-height: 1.2;
 }
 
 .navbar-beatles {
@@ -87,6 +107,14 @@ body {
 section {
   margin: 0.5rem 2rem;
   padding: 0.5rem 2rem;
+}
+
+/* No celular, reduz as margens para não esmagar o conteúdo */
+@media (max-width: 767.98px) {
+  section {
+    margin: 0.5rem 0;
+    padding: 0.5rem 0.75rem;
+  }
 }
 
 .footer-beatles {
@@ -117,73 +145,30 @@ section {
   padding: 0;
 }
 
-.card-home {
-  margin: 2rem;
-  padding: 2rem;
-  width: 60%;
-}
-
 .num-home {
   font-family: var(--fonte-titulos);
   font-size: 4rem;
   line-height: 1.5;
-  font-weight: bold;
+  font-weight: normal;
   margin-bottom: -1.5rem;
-}
-
-.pa-home {
-  font-family: var(--fonte-paragrafos);
-  font-size: 1.5rem;
-  line-height: 1.5;
 }
 
 .text-justificado {
   text-align: justify;
 }
 
-/* ADICIONADO POR JADERSON ANDRADE
-Padroniza o tamanho da imagem em relação a tela e o texto rodear ela */
-.img-jornal {
-  float: left;
-  width: 50%;
-  margin-right: 40px;
-  margin-bottom: 20px;
-}
-
-/* ADICIONADO POR JADERSON ANDRADE
-Justifica o texto para dar cara de jornal impresso, alinhado tanto na esquerda quanto na direita */
-.secao-jornal p {
-  text-align: justify;
-}
-
-/*ADICIONADO POR JADERSON ANDRADE
-Distância do Carrossel G. Harrison para o texto */
-.container-carrossel {
-  margin-top: 80px;
-}
-
 /*ADICIONADO POR JADERSON ANDRADE
 Faz as imagens do carrossel ficarem com tamanho padrão */
 #carrosselGeorge img {
-  height: 80%;
-  object-fit: cover;
-}
-
-/* ADICIONADO POR JADERSON ANDRADE
-Padroniza o tamanho da imagem em relação a tela e o texto rodear ela */
-.container-carrossel-dois {
-  float: left;
-  width: 50%;
-  margin-right: 40px;
-  margin-bottom: 20px;
-}
-
-/*ADICIONADO POR JADERSON ANDRADE
-Faz as imagens do carrossel ficarem com tamanho padrão */
-#carrosselLegado .carousel-item img {
   width: 100%;
   aspect-ratio: 4/3;
   object-fit: cover;
+  margin-bottom: 80px;
+}
+
+/* O carrossel corta o conteúdo que sai da caixa, então o "levantar" do .passada fica desativado nele */
+#carrosselGeorge .passada:hover {
+  transform: none;
 }
 
 /*ADICIONADO POR JADERSON ANDRADE
@@ -207,6 +192,15 @@ Espaçamento do texto para o video */
 .hoverzada:hover {
   transform: scale(1.02);
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Imagens da timeline do Home */
+.zoom-imagem {
+  transition: transform 0.4s ease;
+}
+
+.zoom-imagem:hover {
+  transform: scale(1.03);
 }
 
 .faixa-preta {

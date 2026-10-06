@@ -16,7 +16,7 @@ Jaderson Sousa Andrade
 
 ## Site publicado
 
-COLOQUE_AQUI_O_LINK_DO_NETLIFY
+https://spa-georgeharrison-jaderson.netlify.app
 
 ## Como executar
 

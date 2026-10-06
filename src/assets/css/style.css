@@ -1,33 +1,6 @@
 @charset "UTF-8";
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Rolagem suave e espaço para a navbar sticky nos links âncora (#home, #george, #legado) */
-html,
-:root {
-  scroll-behavior: smooth;
-}
-
-#home,
-#george,
-#legado {
-  scroll-margin-top: 100px;
-}
-
-body {
-  background-color: var(--branco);
-  color: var(--preto);
-  font-family: var(--fonte-paragrafos);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Caminho relativo a src/assets/css/style.css (fontes em src/assets/fonts/) */
+/* ===== Fontes (caminhos relativos a src/assets/css/) ===== */
 @font-face {
   font-family: "BEBAS NEUE";
   src: url(../fonts/BebasNeue-Regular.ttf) format("truetype");
@@ -53,17 +26,42 @@ body {
   font-weight: bold;
 }
 
+/* ===== Variáveis ===== */
 :root {
   --branco: #ffffff;
   --preto: #1a1a1a;
-  --cinza: #6e6e6e;
   --vermelho: #c1121f;
-  --vermelho-bold: #a40f1a;
   --fonte-titulos: "BEBAS NEUE", sans-serif;
   --fonte-paragrafos: "Inter", sans-serif;
   --fonte-destaque: "Playfair Display", serif;
 }
 
+/* ===== Base ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Rolagem suave; o scroll-margin evita que a navbar fixa cubra o título da seção */
+html,
+:root {
+  scroll-behavior: smooth;
+}
+
+#home,
+#george,
+#legado {
+  scroll-margin-top: 100px;
+}
+
+body {
+  background-color: var(--branco);
+  color: var(--preto);
+  font-family: var(--fonte-paragrafos);
+}
+
+/* ===== Tipografia ===== */
 .destaque {
   font-family: var(--fonte-destaque);
   font-size: 2rem;
@@ -71,7 +69,7 @@ body {
   font-style: italic;
 }
 
-/* Bebas Neue só tem peso Regular (já é uma fonte forte), então sem bold simulado */
+/* Bebas Neue só tem o peso Regular, então não usamos bold simulado */
 .titulo {
   font-family: var(--fonte-titulos);
   font-size: 4rem;
@@ -85,64 +83,80 @@ body {
   line-height: 1.5;
 }
 
-/* O Bootstrap só vai até display-6; display-7 é usado nos títulos do Home */
+/* O Bootstrap só vai até display-6 */
 .display-7 {
   font-size: 1.75rem;
   line-height: 1.2;
 }
 
+.text-justificado {
+  text-align: justify;
+}
+
+/* ===== Navbar ===== */
 .navbar-beatles {
   background-color: var(--preto);
 }
 
-.btn-primary {
-  --bs-btn-bg: var(--vermelho);
-  --bs-btn-border-color: var(--vermelho-bold);
-  --bs-btn-hover-bg: var(--vermelho-bold);
-  --bs-btn-hover-border-color: var(--vermelho-bold);
-  --bs-btn-active-bg: var(--vermelho);
-  --bs-btn-active-border-color: var(--vermelho-bold);
+/* ===== Hero ===== */
+.hero {
+  position: relative;
 }
 
-section {
-  margin: 0.5rem 2rem;
-  padding: 0.5rem 2rem;
+/* A imagem nunca passa da altura da tela, para o botão ficar acima da dobra */
+.hero-imagem {
+  display: block;
+  width: 100%;
+  max-height: calc(100vh - 90px);
+  object-fit: cover;
+  object-position: center 20%;
 }
 
-/* No celular, reduz as margens para não esmagar o conteúdo */
-@media (max-width: 767.98px) {
-  section {
-    margin: 0.5rem 0;
-    padding: 0.5rem 0.75rem;
+.hero-conteudo {
+  background-color: var(--preto);
+  color: var(--branco);
+  padding: 1.5rem 1rem 2rem;
+}
+
+.hero-titulo {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.hero-texto {
+  max-width: 40rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.125rem;
+}
+
+@media (max-width: 991.98px) {
+  .hero-imagem {
+    max-height: 40vh;
   }
 }
 
-.footer-beatles {
+/* Em telas largas, título e botão ficam sobre a imagem */
+@media (min-width: 992px) {
+  .hero-conteudo {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 2.5rem 4rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.1) 75%);
+  }
+
+  .hero-titulo {
+    max-width: 45rem;
+  }
+}
+
+/* ===== Faixa de números ===== */
+.faixa-preta {
   background-color: var(--preto);
-  color: var(--branco);
-  margin-top: auto;
-  padding: 1.5rem;
-}
-
-.logo-footer {
-  height: 5rem;
-}
-
-.footer-beatles a:hover {
-  color: rgba(255, 255, 255, 0.75);
-}
-
-.footer-beatles a {
-  color: rgba(255, 255, 255, 0.55);
-}
-
-.footer-beatles p {
-  margin-bottom: 0;
-}
-
-.hero {
-  margin: 0;
-  padding: 0;
 }
 
 .num-home {
@@ -153,30 +167,19 @@ section {
   margin-bottom: -1.5rem;
 }
 
-.text-justificado {
-  text-align: justify;
-}
-
-/*ADICIONADO POR JADERSON ANDRADE
-Faz as imagens do carrossel ficarem com tamanho padrão */
+/* ===== Carrossel da biografia ===== */
 #carrosselGeorge img {
   width: 100%;
   aspect-ratio: 4/3;
   object-fit: cover;
-  margin-bottom: 80px;
 }
 
-/* O carrossel corta o conteúdo que sai da caixa, então o "levantar" do .passada fica desativado nele */
+/* O carrossel corta o que sai da caixa, então o "levantar" do hover fica desativado nele */
 #carrosselGeorge .passada:hover {
   transform: none;
 }
 
-/*ADICIONADO POR JADERSON ANDRADE
-Espaçamento do texto para o video */
-.bt-legado {
-  margin-top: 80px;
-}
-
+/* ===== Efeitos de imagem e cards ===== */
 .passada {
   transition: transform 0.3s ease;
 }
@@ -194,7 +197,6 @@ Espaçamento do texto para o video */
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15) !important;
 }
 
-/* Imagens da timeline do Home */
 .zoom-imagem {
   transition: transform 0.4s ease;
 }
@@ -203,10 +205,83 @@ Espaçamento do texto para o video */
   transform: scale(1.03);
 }
 
-.faixa-preta {
+.preto-e-branco {
+  filter: grayscale(100%);
+}
+
+/* ===== Divisor entre as seções: linha, disco de vinil e linha ===== */
+.divisor {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.divisor::before,
+.divisor::after {
+  content: "";
+  flex: 1;
+  height: 1px;
   background-color: var(--preto);
 }
 
-.preto-e-branco {
-  filter: grayscale(100%);
+.divisor-disco {
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    var(--branco) 0 6%,
+    var(--vermelho) 7% 30%,
+    var(--preto) 31% 100%
+  );
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.12);
+}
+
+/* ===== Chamada final ===== */
+.chamada-final {
+  margin-top: 4rem;
+  padding: 4rem 1rem;
+  background-color: var(--preto);
+  color: var(--branco);
+  text-align: center;
+}
+
+.chamada-titulo {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.chamada-texto {
+  max-width: 40rem;
+  margin: 0 auto 2rem;
+  font-size: 1.125rem;
+}
+
+/* ===== Rodapé ===== */
+.footer-beatles {
+  background-color: var(--preto);
+  color: var(--branco);
+  padding: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.footer-beatles p {
+  margin-bottom: 0;
+}
+
+.footer-beatles a {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.footer-beatles a:hover {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.logo-footer {
+  height: 5rem;
 }

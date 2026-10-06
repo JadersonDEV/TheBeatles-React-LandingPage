@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 
-// Importação obrigatória do Bootstrap (CSS e JS para os carrosséis funcionarem)
+// Bootstrap (CSS e JS, necessário para o carrossel e o menu do celular)
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './assets/css/style.css';

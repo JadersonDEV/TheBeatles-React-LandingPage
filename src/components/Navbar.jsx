@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import logoGeorge from '../assets/img/George-Harrison-logo.png';
-
-// Ids das seções definidas no App.jsx
-const SECOES = ['home', 'george', 'legado'];
+import { LINKS_MENU } from '../data/links';
 
 export default function Navbar() {
   const [ativo, setAtivo] = useState('home');
+  const menuRef = useRef(null);
+  const togglerRef = useRef(null);
 
   // Marca como ativo o link da seção que está visível na tela
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function Navbar() {
       { rootMargin: '-40% 0px -55% 0px', threshold: 0 }
     );
 
-    SECOES.forEach((id) => {
+    LINKS_MENU.forEach(({ id }) => {
       const elemento = document.getElementById(id);
       if (elemento) observer.observe(elemento);
     });
@@ -27,48 +27,49 @@ export default function Navbar() {
     return () => observer.disconnect();
   }, []);
 
-  const classeLink = (id) => `nav-link${ativo === id ? ' active' : ''}`;
+  // No celular, fecha o menu hambúrguer depois de clicar em um link
+  const fecharMenu = () => {
+    if (menuRef.current?.classList.contains('show')) {
+      togglerRef.current?.click();
+    }
+  };
 
   return (
-    /* <!-- Início da Navbar --> */
     <nav className="navbar navbar-expand-lg navbar-dark navbar-beatles sticky-top py-0">
       <div className="container">
-        {/* 1. Logo */}
-        <a className="navbar-brand destaque" href="#home">
-          <img
-            src={logoGeorge}
-            alt="George Harrison"
-            height="80"
-          />
+        <a className="navbar-brand destaque" href="#home" onClick={fecharMenu}>
+          <img src={logoGeorge} alt="George Harrison" height="80" />
           George Harrison
         </a>
 
-        {/* 2. Menu Hambúrguer celular */}
         <button
+          ref={togglerRef}
           className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#menuNavegacao"
+          aria-controls="menuNavegacao"
+          aria-label="Abrir menu"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        {/* 3. Lista de Links que encolhem no celular */}
-        <div className="collapse navbar-collapse" id="menuNavegacao">
+        <div ref={menuRef} className="collapse navbar-collapse" id="menuNavegacao">
           <ul className="navbar-nav ms-auto">
-            <li className="nav-item">
-              <a className={classeLink('home')} href="#home">Início</a>
-            </li>
-            <li className="nav-item">
-              <a className={classeLink('george')} href="#george">Biografia</a>
-            </li>
-            <li className="nav-item">
-              <a className={classeLink('legado')} href="#legado">Legado</a>
-            </li>
+            {LINKS_MENU.map(({ id, rotulo }) => (
+              <li className="nav-item" key={id}>
+                <a
+                  className={`nav-link${ativo === id ? ' active' : ''}`}
+                  href={`#${id}`}
+                  onClick={fecharMenu}
+                >
+                  {rotulo}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
     </nav>
-    /* <!-- Fim da Navbar --> */
   );
 }
